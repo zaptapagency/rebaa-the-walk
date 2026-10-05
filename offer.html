@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Book a Viewing — Rebaa Riyadh</title>
+<meta name="description" content="Private villas in Riyadh — Araya, Rose Villa and Nayan. Built and ready to view. Request prices and book a private viewing. Same-day reply." />
+<link rel="canonical" href="https://zaptapagency.github.io/rebaa-the-walk/offer.html" />
+<meta name="robots" content="index,follow" />
+<!-- Open Graph (for paid social / link previews) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rebaa — Private villas in Riyadh, ready to view" />
+<meta property="og:description" content="Araya · Rose Villa · Nayan. Built and finished. Request prices and book a private viewing." />
+<meta property="og:image" content="https://zaptapagency.github.io/rebaa-the-walk/assets/img/hero.webp" />
+<meta property="og:url" content="https://zaptapagency.github.io/rebaa-the-walk/offer.html" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- ==========================================================
+     AD CONVERSION TRACKING — paste your tags here.
+     Google Ads / GA4 (gtag) or GTM, and Meta Pixel (fbq).
+     The form fires: dataLayer 'generate_lead', gtag('event','generate_lead'),
+     and fbq('track','Lead') automatically when either is present.
+     e.g.
+     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXX"></script>
+     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','AW-XXXX');</script>
+     ========================================================== -->
+
+<link rel="icon" type="image/png" href="assets/img/rebaa-symbol.png" />
+<link rel="preload" as="image" href="assets/img/hero.webp" />
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=12" />
+<link rel="stylesheet" href="styles.css?v=12" />
+<style>
+  /* ===== Landing-page additions (conversion layer) ===== */
+  .lp-hero{ height:auto; min-height:100svh; display:flex; align-items:center; }
+  .lp-hero__grid{
+    position:relative; z-index:3; width:100%; max-width:1340px; margin:0 auto;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(28px,5vw,72px);
+    align-items:center;
+    padding:calc(96px + env(safe-area-inset-top,0px)) clamp(20px,6vw,80px) 96px;
+  }
+  .lp-hero .hero__content{ position:static; inset:auto; max-width:620px; will-change:transform,opacity; }
+  .lp-hero .hero__title{ font-size:clamp(2.4rem,5.2vw,4.4rem); }
+  .lp-usp{ list-style:none; margin:1.6em 0 0; padding:0; display:flex; flex-wrap:wrap; gap:10px 20px; }
+  .lp-usp li{ display:flex; align-items:center; gap:9px; font-size:.92rem; color:var(--stone); }
+  .lp-usp li::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--bronze); flex:0 0 auto; }
+
+  /* Form card */
+  .lp-card{
+    background:rgba(16,15,13,.72); backdrop-filter:blur(14px);
+    border:1px solid var(--line); border-radius:16px;
+    padding:clamp(22px,2.4vw,32px); box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  }
+  .lp-card__eyebrow{ font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--bronze-soft); margin:0 0 .5em; }
+  .lp-card__title{ font-family:var(--display); font-weight:300; font-size:clamp(1.5rem,2.4vw,2rem); line-height:1.1; color:var(--paper); margin:0 0 1.1em; text-wrap:balance; }
+  .lp-form{ display:flex; flex-direction:column; gap:14px; }
+  .lp-field{ display:flex; flex-direction:column; gap:6px; }
+  .lp-field label{ font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--stone-dim); }
+  .lp-form input, .lp-form select{
+    width:100%; font:inherit; font-size:1rem; color:var(--stone);
+    background:rgba(255,255,255,.055); border:1px solid var(--line); border-radius:10px;
+    padding:13px 14px; transition:border-color .25s, background .25s;
+  }
+  .lp-form input::placeholder{ color:var(--stone-faint); }
+  .lp-form input:focus, .lp-form select:focus{ outline:none; border-color:var(--bronze-soft); background:rgba(255,255,255,.08); }
+  .lp-form input.is-invalid{ border-color:#c9553d; animation:lpShake .4s; }
+  @keyframes lpShake{ 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .lp-form select{ appearance:none; -webkit-appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--stone-dim) 50%),linear-gradient(135deg,var(--stone-dim) 50%,transparent 50%); background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%; background-size:5px 5px,5px 5px; background-repeat:no-repeat; }
+  .lp-submit{
+    margin-top:4px; font:inherit; font-size:.82rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--bronze); color:var(--ink); border:none; border-radius:10px; padding:16px 20px; cursor:pointer;
+    transition:background .25s, transform .2s;
+  }
+  .lp-submit:hover{ background:var(--bronze-soft); transform:translateY(-1px); }
+  .lp-fine{ margin:.9em 0 0; font-size:.74rem; color:var(--stone-faint); text-align:center; }
+  .lp-fine b{ color:var(--stone-dim); font-weight:500; }
+
+  /* Success state */
+  .lp-done{ text-align:center; padding:8px 4px; }
+  .lp-done__mark{ width:52px; height:52px; margin:0 auto 14px; border-radius:50%; background:var(--bronze); color:var(--ink); display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
+  .lp-done h3{ font-family:var(--display); font-weight:300; font-size:1.5rem; color:var(--paper); margin:0 0 .4em; }
+  .lp-done p{ color:var(--stone-dim); margin:0; font-size:.98rem; }
+
+  /* End conversion section */
+  .lp-end .lp-card{ max-width:520px; margin:1.6em auto 2.2em; text-align:left; }
+
+  /* Sticky mobile CTA */
+  .lp-sticky{ display:none; }
+  @media (max-width:860px){
+    .lp-hero__grid{ grid-template-columns:1fr; gap:26px; padding-top:calc(104px + env(safe-area-inset-top,0px)); padding-bottom:120px; }
+    .lp-hero .scrollcue{ display:none; }
+    .lp-hero .hero__title{ font-size:clamp(2.1rem,8vw,3rem); }
+    .lp-sticky{
+      display:flex; position:fixed; left:0; right:0; bottom:0; z-index:115;
+      gap:12px; padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));
+      background:linear-gradient(to top, rgba(10,9,8,.96), rgba(10,9,8,.86));
+      border-top:1px solid var(--line); backdrop-filter:blur(8px);
+    }
+    .lp-sticky a{
+      flex:1; text-align:center; background:var(--bronze); color:var(--ink);
+      font-size:.8rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+      padding:15px; border-radius:10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <img class="preloader__logo" src="assets/img/rebaa-lockup.png" alt="Rebaa — Real Estate Development" />
+  <div class="preloader__bar"><span id="preloaderFill"></span></div>
+</div>
+
+<div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+<div class="film" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="#hero" class="wordmark" aria-label="Rebaa — home">
+    <img class="wordmark__img" src="assets/img/rebaa-mark.png" alt="Rebaa" />
+  </a>
+  <span class="topbar__meta">Riyadh · KSA</span>
+</header>
+
+<nav class="rail" aria-label="Sections">
+  <a href="#hero" class="rail__item is-active" data-i="0"><i></i><span>Enquire</span></a>
+  <a href="#araya" class="rail__item" data-i="1"><i></i><span>01 Araya</span></a>
+  <a href="#rosevilla" class="rail__item" data-i="2"><i></i><span>02 Rose Villa</span></a>
+  <a href="#nayan" class="rail__item" data-i="3"><i></i><span>03 Nayan</span></a>
+  <a href="#end" class="rail__item" data-i="4"><i></i><span>Book</span></a>
+</nav>
+
+<main>
+
+  <!-- HERO + LEAD FORM -->
+  <section class="hero lp-hero" id="hero">
+    <div class="hero__media" aria-hidden="true">
+      <video class="bgvid" id="heroVid" poster="assets/img/hero.webp" muted loop autoplay playsinline preload="auto">
+        <source src="assets/video/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="scrim scrim--hero"></div>
+      <div class="grain" aria-hidden="true"></div>
+    </div>
+
+    <div class="lp-hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Rebaa · Riyadh</p>
+        <h1 class="hero__title">Own an address<br />in Riyadh.</h1>
+        <p class="hero__sub">Araya, Rose Villa and Nayan — three finished developments, built to be lived in. Ready to view now.</p>
+        <ul class="lp-usp">
+          <li>Built &amp; handover-ready</li>
+          <li>Prime Riyadh districts</li>
+          <li>Private viewings</li>
+        </ul>
+      </div>
+
+      <aside class="lp-card" id="lead-top" data-form-wrap>
+        <p class="lp-card__eyebrow">Request prices</p>
+        <h2 class="lp-card__title">Get pricing &amp; book a private viewing</h2>
+        <form class="lp-form" novalidate>
+          <div class="lp-field">
+            <label for="t-name">Full name</label>
+            <input id="t-name" name="name" type="text" autocomplete="name" placeholder="Your name" required />
+          </div>
+          <div class="lp-field">
+            <label for="t-phone">Phone / WhatsApp</label>
+            <input id="t-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05X XXX XXXX" required />
+          </div>
+          <div class="lp-field">
+            <label for="t-project">Project of interest</label>
+            <select id="t-project" name="project">
+              <option value="Any / not sure">Any / not sure</option>
+              <option value="Araya">Araya</option>
+              <option value="Rose Villa">Rose Villa</option>
+              <option value="Nayan">Nayan</option>
+            </select>
+          </div>
+          <button class="lp-submit" type="submit">Request prices &amp; viewing</button>
+        </form>
+        <p class="lp-fine"><b>Same-day reply.</b> No spam — your details go straight to the Rebaa sales team.</p>
+      </aside>
+    </div>
+
+    <a href="#intro" class="scrollcue" aria-label="See the homes">
+      <span>See the homes</span>
+      <i></i>
+    </a>
+  </section>
+
+  <!-- INTRO STATEMENT -->
+  <section class="intro" id="intro">
+    <div class="ambient" aria-hidden="true">
+      <div class="ambient__img" style="background-image:url('assets/img/hero.webp')"></div>
+      <div class="scrim scrim--veil"></div>
+    </div>
+    <div class="intro__inner">
+      <p class="intro__kicker">رِبَاع</p>
+      <p class="intro__lead">
+        <em>Rebaa</em> comes from the Arabic for a dwelling — a quarter, a place you
+        return to. Not a brochure. An address.
+      </p>
+      <p class="intro__body">
+        Three of them stand finished in Riyadh. See each one below, then request
+        prices and a viewing.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHAPTER 01 — ARAYA -->
+  <section class="chapter" id="araya" data-index="1">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media aria-hidden="true">
+        <canvas class="bgvid framecanvas" data-sheet="assets/sheets/araya.webp" data-cols="8" data-rows="6" data-count="48" data-poster="assets/img/araya.webp"></canvas>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">01</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Araya</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">أرايا</span>
+        </div>
+        <p class="chapter__line">
+          Warm travertine and dark timber. A slatted gate, deep afternoon shade,
+          the car kept out of the sun.
+        </p>
+        <ul class="tags">
+          <li>Stone + timber screen</li>
+          <li>Private shaded parking</li>
+          <li>Townhouses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 02 — ROSE VILLA -->
+  <section class="chapter" id="rosevilla" data-index="2">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media aria-hidden="true">
+        <canvas class="bgvid framecanvas" data-sheet="assets/sheets/rosevilla.webp" data-cols="8" data-rows="6" data-count="48" data-poster="assets/img/rosevilla.webp"></canvas>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">02</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Rose Villa</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">روز فيلا</span>
+        </div>
+        <p class="chapter__line">
+          Cream limestone behind a perforated screen. The light comes through in
+          squares and moves across the floor all day.
+        </p>
+        <ul class="tags">
+          <li>Perforated brick screen</li>
+          <li>Cantilevered canopy</li>
+          <li>Detached villa</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 03 — NAYAN -->
+  <section class="chapter" id="nayan" data-index="3">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media aria-hidden="true">
+        <canvas class="bgvid framecanvas" data-sheet="assets/sheets/nayan.webp" data-cols="8" data-rows="6" data-count="48" data-poster="assets/img/nayan.webp"></canvas>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">03</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Nayan</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">نيان</span>
+        </div>
+        <p class="chapter__line">
+          Stone and teak, warming as the sun drops. The windows start to glow
+          before you reach the door.
+        </p>
+        <ul class="tags">
+          <li>Teak timber slats</li>
+          <li>Full-height glazing</li>
+          <li>Townhouses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING + LEAD FORM -->
+  <section class="end lp-end" id="end">
+    <div class="ambient" aria-hidden="true">
+      <div class="ambient__img" style="background-image:url('assets/img/nayan.webp')"></div>
+      <div class="scrim scrim--veil"></div>
+    </div>
+    <div class="end__inner">
+      <p class="eyebrow">Book your private viewing</p>
+      <h2 class="end__title">See it in person.</h2>
+      <p class="end__ar" dir="rtl" lang="ar">احجز جولتك الخاصة في الرياض.</p>
+
+      <div class="lp-card" id="lead-end" data-form-wrap>
+        <form class="lp-form" novalidate>
+          <div class="lp-field">
+            <label for="e-name">Full name</label>
+            <input id="e-name" name="name" type="text" autocomplete="name" placeholder="Your name" required />
+          </div>
+          <div class="lp-field">
+            <label for="e-phone">Phone / WhatsApp</label>
+            <input id="e-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05X XXX XXXX" required />
+          </div>
+          <div class="lp-field">
+            <label for="e-project">Project of interest</label>
+            <select id="e-project" name="project">
+              <option value="Any / not sure">Any / not sure</option>
+              <option value="Araya">Araya</option>
+              <option value="Rose Villa">Rose Villa</option>
+              <option value="Nayan">Nayan</option>
+            </select>
+          </div>
+          <button class="lp-submit" type="submit">Request prices &amp; viewing</button>
+        </form>
+        <p class="lp-fine"><b>Same-day reply.</b> We'll send prices and arrange a time that suits you.</p>
+      </div>
+
+      <img class="end__logo" src="assets/img/rebaa-mark.png" alt="Rebaa" />
+      <div class="end__meta">
+        <span>rebaa.sa</span>
+        <span>Riyadh, Saudi Arabia</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky mobile call-to-action -->
+<div class="lp-sticky" aria-hidden="false">
+  <a href="#end">Request prices &amp; a viewing</a>
+</div>
+
+<script src="assets/vendor/lenis.min.js?v=12"></script>
+<script src="main.js?v=12"></script>
+<script>
+/* ============================================================
+   Lead capture — paid-ads landing page
+   Set ONE destination below: WhatsApp (default) or a form endpoint.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  // ======= SET YOUR LEAD DESTINATION =======
+  var LEAD = {
+    mode: "whatsapp",            // "whatsapp"  OR  "endpoint"
+    whatsapp: "9665XXXXXXXX",    // sales WhatsApp, international digits only (e.g. 9665XXXXXXXX)
+    endpoint: ""                 // e.g. "https://formspree.io/f/xxxxxx" — then set mode:"endpoint"
+  };
+  // ==========================================
+
+  function track(data) {
+    try { window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: "generate_lead" }, data)); } catch (e) {}
+    try { if (window.gtag) window.gtag("event", "generate_lead", data); } catch (e) {}
+    try { if (window.fbq) window.fbq("track", "Lead"); } catch (e) {}
+  }
+
+  function esc(s) { return (s || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function flag(form, field) {
+    var el = form.querySelector("[name=" + field + "]");
+    if (el) { el.focus(); el.classList.add("is-invalid"); setTimeout(function () { el.classList.remove("is-invalid"); }, 1400); }
+  }
+
+  function success(form, name) {
+    var wrap = form.closest("[data-form-wrap]") || form.parentNode;
+    form.style.display = "none";
+    var fine = wrap.querySelector(".lp-fine"); if (fine) fine.style.display = "none";
+    var done = document.createElement("div");
+    done.className = "lp-done";
+    done.innerHTML = '<div class="lp-done__mark">✓</div>' +
+      "<h3>Thank you, " + esc(name.split(" ")[0]) + ".</h3>" +
+      "<p>We’ll reach out the same day with prices and a viewing time.</p>";
+    wrap.appendChild(done);
+  }
+
+  function handle(form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var name = (form.querySelector("[name=name]").value || "").trim();
+      var phone = (form.querySelector("[name=phone]").value || "").trim();
+      var project = (form.querySelector("[name=project]") || {}).value || "Any";
+      if (name.length < 2) { flag(form, "name"); return; }
+      if (phone.replace(/\D/g, "").length < 7) { flag(form, "phone"); return; }
+
+      track({ lead_project: project });
+
+      if (LEAD.mode === "endpoint" && LEAD.endpoint) {
+        fetch(LEAD.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ name: name, phone: phone, project: project, source: location.href })
+        }).catch(function () {});
+      } else {
+        var num = (LEAD.whatsapp || "").replace(/\D/g, "");
+        if (num && num.indexOf("X") === -1) {
+          var msg = "Hello Rebaa, I'd like prices and a private viewing." +
+            "%0A%0AName: " + encodeURIComponent(name) +
+            "%0APhone: " + encodeURIComponent(phone) +
+            "%0AProject: " + encodeURIComponent(project);
+          window.open("https://wa.me/" + num + "?text=" + msg, "_blank");
+        }
+      }
+      success(form, name);
+    });
+  }
+
+  document.querySelectorAll("form.lp-form").forEach(handle);
+})();
+</script>
+</body>
+</html>
