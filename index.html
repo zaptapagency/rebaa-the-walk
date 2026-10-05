@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rebaa — The Walk</title>
+<meta name="description" content="A scroll-driven cinematic walk through three Rebaa developments in Riyadh: Araya, Rose Villa and Nayan." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="icon" type="image/png" href="assets/img/rebaa-symbol.png" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <img class="preloader__logo" src="assets/img/rebaa-lockup.png" alt="Rebaa — Real Estate Development" />
+  <div class="preloader__bar"><span id="preloaderFill"></span></div>
+</div>
+
+<!-- Scroll progress -->
+<div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+
+<!-- Fixed brand header -->
+<header class="topbar">
+  <a href="#hero" class="wordmark" aria-label="Rebaa — home">
+    <img class="wordmark__img" src="assets/img/rebaa-mark.png" alt="Rebaa" />
+  </a>
+  <span class="topbar__meta">Riyadh · KSA</span>
+</header>
+
+<!-- Chapter rail -->
+<nav class="rail" aria-label="Chapters">
+  <a href="#hero" class="rail__item is-active" data-i="0"><i></i><span>Start</span></a>
+  <a href="#araya" class="rail__item" data-i="1"><i></i><span>01 Araya</span></a>
+  <a href="#rosevilla" class="rail__item" data-i="2"><i></i><span>02 Rose Villa</span></a>
+  <a href="#nayan" class="rail__item" data-i="3"><i></i><span>03 Nayan</span></a>
+  <a href="#end" class="rail__item" data-i="4"><i></i><span>Rebaa</span></a>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__media">
+      <video class="bgvid" id="heroVid" poster="assets/img/hero.png" muted loop autoplay playsinline preload="auto">
+        <source src="assets/video/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="scrim scrim--hero"></div>
+      <div class="grain" aria-hidden="true"></div>
+    </div>
+    <div class="hero__content">
+      <p class="eyebrow">Rebaa — Real Estate Development</p>
+      <h1 class="hero__title">A walk through three<br />addresses in Riyadh.</h1>
+      <p class="hero__sub">Araya. Rose Villa. Nayan. Built to be lived in — not listed.</p>
+      <p class="hero__ar" dir="rtl" lang="ar">جولة في ثلاثة عناوين بالرياض — بيوتٌ تُسكَن، لا تُعرَض.</p>
+    </div>
+    <a href="#intro" class="scrollcue" aria-label="Scroll to begin">
+      <span>Scroll to walk in</span>
+      <i></i>
+    </a>
+  </section>
+
+  <!-- INTRO STATEMENT -->
+  <section class="intro" id="intro">
+    <div class="intro__inner">
+      <p class="intro__kicker">رِبَاع</p>
+      <p class="intro__lead">
+        <em>Rebaa</em> comes from the Arabic for a dwelling — a quarter, a place you
+        return to. Not a brochure. An address.
+      </p>
+      <p class="intro__body">
+        Three of them stand finished in Riyadh. Walk from the first to the last,
+        and let each one hold its own light.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHAPTER 01 — ARAYA -->
+  <section class="chapter" id="araya" data-index="1">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media>
+        <video class="bgvid" poster="assets/img/araya.png" muted playsinline preload="auto" data-scrub>
+          <source src="assets/video/araya.mp4" type="video/mp4" />
+        </video>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">01</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Araya</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">أرايا</span>
+        </div>
+        <p class="chapter__line">
+          Warm travertine and dark timber. A slatted gate, deep afternoon shade,
+          the car kept out of the sun.
+        </p>
+        <ul class="tags">
+          <li>Stone + timber screen</li>
+          <li>Private shaded parking</li>
+          <li>Townhouses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 02 — ROSE VILLA -->
+  <section class="chapter" id="rosevilla" data-index="2">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media>
+        <video class="bgvid" poster="assets/img/rosevilla.png" muted playsinline preload="auto" data-scrub>
+          <source src="assets/video/rosevilla.mp4" type="video/mp4" />
+        </video>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">02</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Rose Villa</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">روز فيلا</span>
+        </div>
+        <p class="chapter__line">
+          Cream limestone behind a perforated screen. The light comes through in
+          squares and moves across the floor all day.
+        </p>
+        <ul class="tags">
+          <li>Perforated brick screen</li>
+          <li>Cantilevered canopy</li>
+          <li>Detached villa</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 03 — NAYAN -->
+  <section class="chapter" id="nayan" data-index="3">
+    <div class="chapter__sticky">
+      <div class="chapter__media" data-media>
+        <video class="bgvid" poster="assets/img/nayan.png" muted playsinline preload="auto" data-scrub>
+          <source src="assets/video/nayan.mp4" type="video/mp4" />
+        </video>
+        <div class="scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="chapter__text" data-text>
+        <span class="chapter__num">03</span>
+        <p class="chapter__place">Riyadh · <span dir="rtl" lang="ar">الرياض</span></p>
+        <div class="chapter__names">
+          <h2 class="chapter__name">Nayan</h2>
+          <span class="chapter__name-ar" dir="rtl" lang="ar">نيان</span>
+        </div>
+        <p class="chapter__line">
+          Stone and teak, warming as the sun drops. The windows start to glow
+          before you reach the door.
+        </p>
+        <ul class="tags">
+          <li>Teak timber slats</li>
+          <li>Full-height glazing</li>
+          <li>Townhouses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="end" id="end">
+    <div class="end__inner">
+      <p class="eyebrow">Rebaa builds in Riyadh</p>
+      <h2 class="end__title">One name,<br />carried by every address.</h2>
+      <p class="end__ar" dir="rtl" lang="ar">اسمٌ واحد، يحمله كل عنوان.</p>
+      <p class="end__body">
+        Araya, Rose Villa and Nayan are built and standing. Walk them in person,
+        or ask us where the next one goes up.
+      </p>
+      <div class="end__actions">
+        <a class="btn btn--solid" href="#hero">Walk it again</a>
+        <a class="btn btn--ghost" href="#araya">Revisit a project</a>
+      </div>
+      <img class="end__logo" src="assets/img/rebaa-mark.png" alt="Rebaa" />
+      <div class="end__meta">
+        <span>rebaa.sa</span>
+        <span>Riyadh, Saudi Arabia</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+/* ============================================================
+   Rebaa — The Walk
+   Layout: full-bleed cinematic scroll. Sticky video chapters,
+   a right-side chapter rail, a bronze top progress line.
+   Committed single visual world: dark, warm, filmic.
+   ============================================================ */
+
+:root{
+  /* Color — Rebaa palette (Stone / Charcoal / Bronze on an ink ground) */
+  --ink:        #100f0d;   /* deep ground behind everything */
+  --ink-2:      #171512;
+  --charcoal:   #2b2a28;
+  --stone:      #e7e1d3;   /* primary light text */
+  --stone-dim:  rgba(231,225,211,.60);
+  --stone-faint:rgba(231,225,211,.34);
+  --paper:      #ffffff;
+  --bronze:     #bb8a52;   /* single deliberate accent */
+  --bronze-soft:#d7b483;
+  --line:       rgba(231,225,211,.14);
+
+  /* Type */
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:    "Inter", system-ui, -apple-system, sans-serif;
+  --arab:    "IBM Plex Sans Arabic", "Inter", sans-serif;
+
+  /* Motion */
+  --ease: cubic-bezier(.22,.61,.36,1);
+
+  color-scheme: dark;
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+html, body{ margin:0; background:var(--ink); color:var(--stone); }
+body{
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body{ height:auto; }
+.lenis.lenis-smooth{ scroll-behavior:auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent]{ overscroll-behavior:contain; }
+.lenis.lenis-stopped{ overflow:hidden; }
+img,video{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+::selection{ background:var(--bronze); color:var(--ink); }
+
+/* ---------- Shared type bits ---------- */
+.eyebrow{
+  font-size:.72rem; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--bronze-soft); font-weight:500; margin:0;
+}
+
+/* ============================================================
+   Preloader
+   ============================================================ */
+.preloader{
+  position:fixed; inset:0; z-index:200;
+  background:var(--ink);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:28px;
+  transition:opacity .9s var(--ease), visibility .9s var(--ease);
+}
+.preloader.is-done{ opacity:0; visibility:hidden; }
+.preloader__logo{ width:clamp(190px,30vw,280px); height:auto; opacity:.95; }
+.preloader__bar{ width:140px; height:1px; background:var(--line); overflow:hidden; }
+.preloader__bar span{ display:block; height:100%; width:0; background:var(--bronze); transition:width .2s linear; }
+
+/* ============================================================
+   Scroll progress + top bar
+   ============================================================ */
+.progress{
+  position:fixed; top:0; left:0; right:0; height:2px; z-index:120;
+  background:transparent;
+}
+.progress span{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--bronze),var(--bronze-soft)); }
+
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:110;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px clamp(18px,4vw,46px);
+  padding-top:calc(16px + env(safe-area-inset-top,0px));
+  pointer-events:none;
+}
+.topbar a{ pointer-events:auto; }
+.wordmark{ display:flex; align-items:center; }
+.wordmark__img{ height:clamp(30px,4.4vw,40px); width:auto; filter:drop-shadow(0 1px 10px rgba(0,0,0,.5)); }
+.topbar__meta{ font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); }
+
+/* ============================================================
+   Chapter rail (right side)
+   ============================================================ */
+.rail{
+  position:fixed; z-index:110; right:clamp(14px,3vw,34px); top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:18px;
+}
+.rail__item{ display:flex; align-items:center; gap:12px; justify-content:flex-end; }
+.rail__item i{
+  width:9px; height:9px; border-radius:50%;
+  border:1px solid var(--stone-faint); background:transparent;
+  transition:all .4s var(--ease); flex:0 0 auto;
+}
+.rail__item span{
+  font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--stone-faint);
+  opacity:0; transform:translateX(6px);
+  transition:all .4s var(--ease);
+  white-space:nowrap;
+}
+.rail__item:hover span{ opacity:1; transform:translateX(0); color:var(--stone-dim); }
+.rail__item.is-active i{ background:var(--bronze); border-color:var(--bronze); transform:scale(1.25); box-shadow:0 0 0 4px rgba(187,138,82,.16); }
+.rail__item.is-active span{ opacity:1; transform:translateX(0); color:var(--stone); }
+
+/* ============================================================
+   Media primitives (video, scrim, grain)
+   ============================================================ */
+.bgvid{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  transform:translateZ(0); backface-visibility:hidden;
+}
+.scrim{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(to top, rgba(16,15,13,.82) 0%, rgba(16,15,13,.12) 42%, rgba(16,15,13,.34) 100%),
+    linear-gradient(to right, rgba(16,15,13,.55), rgba(16,15,13,0) 55%);
+}
+.scrim--hero{
+  background:
+    linear-gradient(to top, rgba(16,15,13,.80) 0%, rgba(16,15,13,0) 40%, rgba(16,15,13,.45) 100%);
+}
+.grain{
+  position:absolute; inset:0; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ position:relative; height:100svh; min-height:560px; overflow:hidden; }
+.hero__media{ position:absolute; inset:0; transform:scale(1.06); transform-origin:center; will-change:transform; }
+.hero__content{
+  position:absolute; left:clamp(20px,6vw,88px); bottom:clamp(96px,16vh,170px); right:clamp(20px,6vw,88px);
+  max-width:min(92vw,880px);
+  will-change:transform,opacity;
+}
+.hero__title{
+  font-family:var(--display); font-weight:300; font-optical-sizing:auto;
+  font-size:clamp(2.6rem,7vw,6rem); line-height:1.02; letter-spacing:-.015em;
+  margin:.28em 0 .4em; color:var(--paper); text-wrap:balance;
+}
+.hero__sub{ font-size:clamp(1rem,1.5vw,1.2rem); color:var(--stone-dim); max-width:46ch; margin:0; font-weight:300; }
+.hero__ar{ font-family:var(--arab); font-size:clamp(.95rem,1.4vw,1.15rem); color:var(--stone-faint); margin:1.1em 0 0; font-weight:300; letter-spacing:0; }
+
+.scrollcue{
+  position:absolute; left:50%; bottom:28px; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  color:var(--stone-dim); z-index:3;
+}
+.scrollcue span{ font-size:.64rem; letter-spacing:.3em; text-transform:uppercase; }
+.scrollcue i{ width:1px; height:46px; background:linear-gradient(var(--bronze),transparent); position:relative; overflow:hidden; }
+.scrollcue i::after{ content:""; position:absolute; top:-50%; left:0; width:100%; height:50%; background:var(--bronze-soft); animation:cue 2.1s var(--ease) infinite; }
+@keyframes cue{ 0%{top:-50%} 60%,100%{top:100%} }
+
+/* ============================================================
+   INTRO statement
+   ============================================================ */
+.intro{
+  background:var(--ink);
+  padding:clamp(96px,20vh,220px) clamp(20px,6vw,88px);
+  display:flex; justify-content:center;
+}
+.intro__inner{ max-width:760px; }
+.intro__kicker{ font-family:var(--arab); font-size:1.6rem; color:var(--bronze-soft); margin:0 0 28px; }
+.intro__lead{
+  font-family:var(--display); font-weight:300; font-size:clamp(1.7rem,3.4vw,2.9rem);
+  line-height:1.24; letter-spacing:-.01em; margin:0 0 1em; color:var(--stone); text-wrap:balance;
+}
+.intro__lead em{ font-style:italic; color:var(--bronze-soft); }
+.intro__body{ font-size:clamp(1rem,1.4vw,1.15rem); color:var(--stone-dim); max-width:52ch; margin:0; font-weight:300; }
+
+/* ============================================================
+   CHAPTERS — sticky video + scroll-revealed text
+   Each section is tall; the inner panel pins for the duration.
+   ============================================================ */
+.chapter{ position:relative; height:360vh; }
+.chapter__sticky{ position:sticky; top:0; height:100svh; overflow:hidden; }
+.chapter__media{
+  position:absolute; inset:0; transform:scale(1.14); transform-origin:center 40%;
+  will-change:transform; /* driven by --p */
+}
+.chapter__text{
+  position:absolute; left:clamp(20px,6vw,96px); bottom:clamp(74px,14vh,150px);
+  right:clamp(20px,6vw,96px); max-width:min(92vw,720px);
+  will-change:transform,opacity;
+}
+.chapter__num{
+  font-family:var(--display); font-weight:300; font-size:clamp(3rem,10vw,8rem);
+  line-height:.8; color:transparent; -webkit-text-stroke:1px var(--stone-faint);
+  display:block; margin-bottom:.1em; letter-spacing:-.02em;
+}
+.chapter__place{ font-size:.7rem; letter-spacing:.34em; text-transform:uppercase; color:var(--bronze-soft); margin:0 0 .5em; }
+.chapter__names{ display:flex; align-items:baseline; gap:clamp(14px,2vw,26px); flex-wrap:wrap; margin-bottom:.35em; }
+.chapter__name{
+  font-family:var(--display); font-weight:300; font-size:clamp(2.6rem,6.4vw,5.4rem);
+  line-height:1; letter-spacing:-.02em; margin:0; color:var(--paper);
+}
+.chapter__name-ar{
+  font-family:var(--arab); font-weight:300; font-size:clamp(1.5rem,3.2vw,2.6rem);
+  color:var(--bronze-soft); line-height:1;
+}
+.chapter__line{ font-size:clamp(1rem,1.5vw,1.26rem); line-height:1.5; color:var(--stone); max-width:40ch; margin:0 0 1.5em; font-weight:300; }
+.tags{ list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:10px; }
+.tags li{
+  font-size:.72rem; letter-spacing:.06em; color:var(--stone-dim);
+  border:1px solid var(--line); border-radius:999px; padding:7px 15px;
+  backdrop-filter:blur(4px); background:rgba(16,15,13,.22);
+}
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.end{
+  min-height:100svh; background:
+    radial-gradient(120% 80% at 50% 0%, rgba(187,138,82,.10), transparent 60%),
+    var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(90px,16vh,160px) clamp(20px,6vw,88px);
+}
+.end__inner{ max-width:760px; text-align:center; }
+.end__title{
+  font-family:var(--display); font-weight:300; font-size:clamp(2.4rem,6vw,5rem);
+  line-height:1.03; letter-spacing:-.02em; margin:.5em 0 .5em; color:var(--paper); text-wrap:balance;
+}
+.end__ar{ font-family:var(--arab); font-size:clamp(1.1rem,2vw,1.5rem); color:var(--bronze-soft); margin:0 0 1.4em; font-weight:300; }
+.end__body{ font-size:clamp(1rem,1.4vw,1.15rem); color:var(--stone-dim); max-width:50ch; margin:0 auto 2.4em; font-weight:300; }
+.end__actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:3.2em; }
+.btn{
+  font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+  padding:15px 30px; border-radius:999px; transition:all .35s var(--ease); border:1px solid transparent;
+}
+.btn--solid{ background:var(--bronze); color:var(--ink); }
+.btn--solid:hover{ background:var(--bronze-soft); transform:translateY(-2px); }
+.btn--ghost{ border-color:var(--line); color:var(--stone); }
+.btn--ghost:hover{ border-color:var(--bronze-soft); color:var(--bronze-soft); }
+.end__logo{ height:clamp(48px,7vw,64px); width:auto; opacity:.92; margin-bottom:2.2em; }
+.end__meta{
+  display:flex; gap:28px; justify-content:center; flex-wrap:wrap;
+  padding-top:2.4em; border-top:1px solid var(--line);
+  font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--stone-faint);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:720px){
+  .rail{ display:none; }
+  .chapter{ height:280vh; }
+  .topbar__meta{ display:none; }
+  .hero__content{ bottom:120px; }
+  .scrim{ background:linear-gradient(to top, rgba(16,15,13,.88) 0%, rgba(16,15,13,.15) 50%, rgba(16,15,13,.5) 100%); }
+}
+
+/* ============================================================
+   Reduced motion — kill parallax & ambient animation
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .hero__media,.chapter__media{ transform:none !important; }
+  .scrollcue i::after{ animation:none; }
+  *{ transition-duration:.001ms !important; }
+}
