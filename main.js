@@ -82,7 +82,7 @@
 
   // Throttled image loader — cap concurrent requests so we never flood the
   // HTTP/2 connection (which caused ERR_HTTP2_PROTOCOL_ERROR on some frames).
-  var LOAD_CONC = 8, inFlight = 0, queue = [];
+  var LOAD_CONC = 4, inFlight = 0, queue = [];
   function pump() {
     while (inFlight < LOAD_CONC && queue.length) {
       var job = queue.shift();
@@ -137,11 +137,10 @@
   if (heroVid) {
     var tryPlay = function () { var p = heroVid.play(); if (p && p.catch) p.catch(function () {}); };
     tryPlay();
+    // Keep the hero clip playing (it's tiny) rather than pausing off-screen,
+    // which would abort/re-request its range and log console errors.
     new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) tryPlay();
-        else { try { heroVid.pause(); } catch (err) {} }
-      });
+      entries.forEach(function (e) { if (e.isIntersecting) tryPlay(); });
     }, { threshold: 0.05 }).observe(heroVid);
   }
 
