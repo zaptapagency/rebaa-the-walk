@@ -90,6 +90,26 @@
   window.addEventListener("load", function () { setTimeout(hidePreloader, 900); });
   setTimeout(hidePreloader, 3500);
 
+  /* ---------- Ambient backdrops (intro / end): lazy, play when visible ---------- */
+  var ambVids = Array.prototype.slice.call(document.querySelectorAll("video[data-amb]"));
+  var ambObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (!v.dataset.loaded) {
+          v.dataset.loaded = "1";
+          var s = document.createElement("source");
+          s.src = v.dataset.amb; s.type = "video/mp4";
+          v.appendChild(s); v.load();
+        }
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      } else {
+        try { v.pause(); } catch (err) {}
+      }
+    });
+  }, { threshold: 0.05 });
+  ambVids.forEach(function (v) { ambObserver.observe(v); });
+
   /* ---------- Chapter rail active state ---------- */
   var railItems = Array.prototype.slice.call(document.querySelectorAll(".rail__item"));
   var railSections = ["hero", "araya", "rosevilla", "nayan", "end"].map(function (id) {

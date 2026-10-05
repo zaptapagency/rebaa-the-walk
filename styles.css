@@ -138,6 +138,42 @@ a{ color:inherit; text-decoration:none; }
 }
 
 /* ============================================================
+   GLOBAL CINEMATIC LAYER — over the whole page
+   widescreen grade + vignette + animated grain + faint flicker
+   ============================================================ */
+.film{
+  position:fixed; inset:0; z-index:95; pointer-events:none;
+  background:
+    /* warm cinematic grade */
+    linear-gradient(to bottom, rgba(40,26,12,.06), rgba(10,14,20,.06)),
+    /* widescreen top/bottom darkening */
+    linear-gradient(to bottom, rgba(6,5,4,.55) 0%, transparent 11%, transparent 89%, rgba(6,5,4,.62) 100%),
+    /* vignette */
+    radial-gradient(135% 120% at 50% 46%, transparent 48%, rgba(6,5,4,.5) 100%);
+  animation:filmFlicker 7s ease-in-out infinite;
+}
+.film::after{
+  content:""; position:absolute; inset:-60%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.055; mix-blend-mode:overlay;
+  animation:filmGrain 1.05s steps(3) infinite;
+}
+@keyframes filmGrain{
+  0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)}
+  50%{transform:translate(2%,-2%)} 75%{transform:translate(-2%,-3%)} 100%{transform:translate(2%,2%)}
+}
+@keyframes filmFlicker{ 0%,100%{opacity:1} 48%{opacity:.965} 52%{opacity:.985} 70%{opacity:.955} }
+
+/* Ambient moving backdrop reused in flat sections */
+.ambient{ position:absolute; inset:0; overflow:hidden; z-index:0; }
+.ambient .bgvid{ filter:blur(5px) saturate(.9); transform:scale(1.12) translateZ(0); opacity:.5; }
+.scrim--veil{
+  background:
+    linear-gradient(to bottom, rgba(16,15,13,.82), rgba(16,15,13,.72) 50%, rgba(16,15,13,.88)),
+    radial-gradient(90% 70% at 50% 50%, rgba(16,15,13,.25), rgba(16,15,13,.8));
+}
+
+/* ============================================================
    HERO
    ============================================================ */
 .hero{ position:relative; height:100svh; min-height:560px; overflow:hidden; }
@@ -169,11 +205,12 @@ a{ color:inherit; text-decoration:none; }
    INTRO statement
    ============================================================ */
 .intro{
+  position:relative; overflow:hidden;
   background:var(--ink);
   padding:clamp(96px,20vh,220px) clamp(20px,6vw,88px);
   display:flex; justify-content:center;
 }
-.intro__inner{ max-width:760px; }
+.intro__inner{ max-width:760px; position:relative; z-index:1; }
 .intro__kicker{ font-family:var(--arab); font-size:1.6rem; color:var(--bronze-soft); margin:0 0 28px; }
 .intro__lead{
   font-family:var(--display); font-weight:300; font-size:clamp(1.7rem,3.4vw,2.9rem);
@@ -224,13 +261,14 @@ a{ color:inherit; text-decoration:none; }
    CLOSING
    ============================================================ */
 .end{
+  position:relative; overflow:hidden;
   min-height:100svh; background:
     radial-gradient(120% 80% at 50% 0%, rgba(187,138,82,.10), transparent 60%),
     var(--ink);
   display:flex; align-items:center; justify-content:center;
   padding:clamp(90px,16vh,160px) clamp(20px,6vw,88px);
 }
-.end__inner{ max-width:760px; text-align:center; }
+.end__inner{ max-width:760px; text-align:center; position:relative; z-index:1; }
 .end__title{
   font-family:var(--display); font-weight:300; font-size:clamp(2.4rem,6vw,5rem);
   line-height:1.03; letter-spacing:-.02em; margin:.5em 0 .5em; color:var(--paper); text-wrap:balance;
@@ -270,6 +308,6 @@ a{ color:inherit; text-decoration:none; }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   .hero__media,.chapter__media{ transform:none !important; }
-  .scrollcue i::after{ animation:none; }
+  .scrollcue i::after,.film,.film::after{ animation:none !important; }
   *{ transition-duration:.001ms !important; }
 }

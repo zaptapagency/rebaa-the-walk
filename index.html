@@ -22,6 +22,9 @@
 <!-- Scroll progress -->
 <div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
 
+<!-- Global cinematic layer: widescreen grade, vignette, film grain, flicker -->
+<div class="film" aria-hidden="true"></div>
+
 <!-- Fixed brand header -->
 <header class="topbar">
   <a href="#hero" class="wordmark" aria-label="Rebaa — home">
@@ -64,6 +67,10 @@
 
   <!-- INTRO STATEMENT -->
   <section class="intro" id="intro">
+    <div class="ambient" aria-hidden="true">
+      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/hero.mp4" poster="assets/img/hero.png"></video>
+      <div class="scrim scrim--veil"></div>
+    </div>
     <div class="intro__inner">
       <p class="intro__kicker">رِبَاع</p>
       <p class="intro__lead">
@@ -169,6 +176,10 @@
 
   <!-- CLOSING -->
   <section class="end" id="end">
+    <div class="ambient" aria-hidden="true">
+      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/nayan.mp4" poster="assets/img/nayan.png"></video>
+      <div class="scrim scrim--veil"></div>
+    </div>
     <div class="end__inner">
       <p class="eyebrow">Rebaa builds in Riyadh</p>
       <h2 class="end__title">One name,<br />carried by every address.</h2>
