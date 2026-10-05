@@ -167,7 +167,12 @@ a{ color:inherit; text-decoration:none; }
 
 /* Ambient moving backdrop reused in flat sections */
 .ambient{ position:absolute; inset:0; overflow:hidden; z-index:0; }
-.ambient .bgvid{ filter:blur(5px) saturate(.9); transform:scale(1.12) translateZ(0); opacity:.5; }
+.ambient__img{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  filter:blur(5px) saturate(.9); opacity:.5; transform:scale(1.14) translateZ(0);
+  animation:ambientZoom 28s ease-in-out infinite alternate;
+}
+@keyframes ambientZoom{ from{ transform:scale(1.12) translate(0,0) } to{ transform:scale(1.2) translate(-1.5%,-1%) } }
 .scrim--veil{
   background:
     linear-gradient(to bottom, rgba(16,15,13,.82), rgba(16,15,13,.72) 50%, rgba(16,15,13,.88)),
@@ -309,6 +314,6 @@ a{ color:inherit; text-decoration:none; }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   .hero__media,.chapter__media{ transform:none !important; }
-  .scrollcue i::after,.film,.film::after{ animation:none !important; }
+  .scrollcue i::after,.film,.film::after,.ambient__img{ animation:none !important; }
   *{ transition-duration:.001ms !important; }
 }
