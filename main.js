@@ -15,14 +15,6 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
-  // Prefer WebP frames; fall back to JPEG where WebP is unsupported.
-  var EXT = (function () {
-    try {
-      var c = document.createElement("canvas");
-      return c.toDataURL && c.toDataURL("image/webp").indexOf("data:image/webp") === 0 ? "webp" : "jpg";
-    } catch (e) { return "jpg"; }
-  })();
-
   /* ---------- Preloader ---------- */
   var preloader = document.getElementById("preloader");
   var pFill = document.getElementById("preloaderFill");
@@ -55,82 +47,58 @@
     });
   })();
 
-  // chapters (canvas frame scrub)
+  // chapters (canvas scrub from a single sprite sheet — one request each)
   ["araya", "rosevilla", "nayan"].forEach(function (id) {
     var sec = document.getElementById(id);
     if (!sec) return;
-    var canvas = sec.querySelector("canvas[data-frames]");
+    var canvas = sec.querySelector("canvas[data-sheet]");
     var fs = {
       isHero: false, sec: sec,
       media: sec.querySelector("[data-media]"),
       text: sec.querySelector("[data-text]"),
       canvas: canvas,
       ctx: canvas ? canvas.getContext("2d", { alpha: false }) : null,
-      base: canvas ? canvas.getAttribute("data-frames") : null,
+      sheetSrc: canvas ? canvas.getAttribute("data-sheet") : null,
+      cols: canvas ? parseInt(canvas.getAttribute("data-cols"), 10) : 1,
       count: canvas ? parseInt(canvas.getAttribute("data-count"), 10) : 0,
-      imgs: [], loadStarted: false, drawn: -1, firstReady: false
+      img: null, loaded: false, loading: false, drawn: -1
     };
     if (canvas) { canvas.width = FW; canvas.height = FH; }
     // draw poster immediately as a placeholder
     if (fs.ctx) {
       var poster = new Image();
-      poster.onload = function () { if (fs.drawn < 0) fs.ctx.drawImage(poster, 0, 0, FW, FH); };
+      poster.onload = function () { if (!fs.loaded && fs.drawn < 0) fs.ctx.drawImage(poster, 0, 0, FW, FH); };
       poster.src = canvas.getAttribute("data-poster");
     }
     targets.push(fs);
   });
 
-  // Throttled image loader — cap concurrent requests so we never flood the
-  // HTTP/2 connection (which caused ERR_HTTP2_PROTOCOL_ERROR on some frames).
-  var LOAD_CONC = 4, inFlight = 0, queue = [];
-  function pump() {
-    while (inFlight < LOAD_CONC && queue.length) {
-      var job = queue.shift();
-      inFlight++;
-      (function (job) {
-        var im = new Image();
-        im.onload = function () { inFlight--; job.done(im); pump(); };
-        im.onerror = function () {
-          inFlight--;
-          if (job.tries < 1) { job.tries++; queue.push(job); } // one retry
-          pump();
-        };
-        im.src = job.src;
-      })(job);
-    }
+  // One sprite sheet per chapter → one request, no HTTP/2 flooding.
+  function loadSheet(fs) {
+    if (fs.loaded || fs.loading || !fs.sheetSrc) return;
+    fs.loading = true;
+    var im = new Image();
+    im.onload = function () { fs.img = im; fs.loaded = true; fs.loading = false; };
+    im.onerror = function () { fs.loading = false; };
+    im.src = fs.sheetSrc;
   }
-  function startLoad(fs) {
-    if (fs.loadStarted) return;
-    fs.loadStarted = true;
-    fs.imgs = new Array(fs.count);
-    for (var i = 0; i < fs.count; i++) {
-      (function (idx) {
-        queue.push({
-          src: fs.base + "/" + ("00" + (idx + 1)).slice(-3) + "." + EXT,
-          tries: 0,
-          done: function (im) { fs.imgs[idx] = im; fs.firstReady = true; }
-        });
-      })(i);
-    }
-    pump();
+  function releaseSheet(fs) {
+    if (!fs.loaded) return;         // free the large decoded sheet when far away
+    fs.img = null; fs.loaded = false; fs.drawn = -1;
+  }
+  function drawCell(fs, idx) {
+    if (!fs.ctx || !fs.loaded) return;
+    var sx = (idx % fs.cols) * FW;
+    var sy = Math.floor(idx / fs.cols) * FH;
+    fs.ctx.drawImage(fs.img, sx, sy, FW, FH, 0, 0, FW, FH);
+    fs.drawn = idx;
   }
 
-  function drawFrame(fs, idx) {
-    if (!fs.ctx) return;
-    var im = fs.imgs[idx];
-    if (im) { fs.ctx.drawImage(im, 0, 0, FW, FH); fs.drawn = idx; return; }
-    // nearest already-decoded frame, so we never show a blank/stuck canvas
-    for (var d = 1; d < fs.count; d++) {
-      if (idx - d >= 0 && fs.imgs[idx - d]) { fs.ctx.drawImage(fs.imgs[idx - d], 0, 0, FW, FH); return; }
-      if (idx + d < fs.count && fs.imgs[idx + d]) { fs.ctx.drawImage(fs.imgs[idx + d], 0, 0, FW, FH); return; }
-    }
-  }
-
-  // Preload every chapter's frames in the background so scrubbing is
-  // ready before the visitor arrives (no poster freeze on first scroll).
+  // Preload the first chapter's sheet so the hero → chapter hand-off is seamless.
   setTimeout(function () {
-    targets.forEach(function (t) { if (!t.isHero) startLoad(t); });
-  }, 1000);
+    var first = targets.filter(function (t) { return !t.isHero; })[0];
+    if (first) loadSheet(first);
+  }, 900);
 
   /* ---------- Hero video (autoplay, pause off-screen) ---------- */
   var heroVid = document.getElementById("heroVid");
@@ -209,10 +177,11 @@
           t.content.style.opacity = String(clamp(1 - p * 1.35, 0, 1));
         }
       } else {
-        var near = (sy + vh * 1.5) > top && sy < top + h + vh;
-        if (near) startLoad(t);
+        var near = (sy + vh * 1.5) > top && sy < (top + h + vh * 0.5);
+        if (near) loadSheet(t);
+        else if (sy > top + h + vh || (sy + vh) < top - vh) releaseSheet(t); // free when far
         var idx = Math.round(p * (t.count - 1));
-        if (idx !== t.drawn) drawFrame(t, idx);
+        if (idx !== t.drawn) drawCell(t, idx);
 
         if (t.media && !reduce) t.media.style.transform = "scale(" + (1.12 - p * 0.12) + ")";
         if (t.text) {
