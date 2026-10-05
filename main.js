@@ -80,20 +80,39 @@
     targets.push(fs);
   });
 
+  // Throttled image loader — cap concurrent requests so we never flood the
+  // HTTP/2 connection (which caused ERR_HTTP2_PROTOCOL_ERROR on some frames).
+  var LOAD_CONC = 8, inFlight = 0, queue = [];
+  function pump() {
+    while (inFlight < LOAD_CONC && queue.length) {
+      var job = queue.shift();
+      inFlight++;
+      (function (job) {
+        var im = new Image();
+        im.onload = function () { inFlight--; job.done(im); pump(); };
+        im.onerror = function () {
+          inFlight--;
+          if (job.tries < 1) { job.tries++; queue.push(job); } // one retry
+          pump();
+        };
+        im.src = job.src;
+      })(job);
+    }
+  }
   function startLoad(fs) {
     if (fs.loadStarted) return;
     fs.loadStarted = true;
     fs.imgs = new Array(fs.count);
     for (var i = 0; i < fs.count; i++) {
       (function (idx) {
-        var im = new Image();
-        im.onload = function () {
-          fs.imgs[idx] = im;
-          if (!fs.firstReady) { fs.firstReady = true; }
-        };
-        im.src = fs.base + "/" + ("00" + (idx + 1)).slice(-3) + "." + EXT;
+        queue.push({
+          src: fs.base + "/" + ("00" + (idx + 1)).slice(-3) + "." + EXT,
+          tries: 0,
+          done: function (im) { fs.imgs[idx] = im; fs.firstReady = true; }
+        });
       })(i);
     }
+    pump();
   }
 
   function drawFrame(fs, idx) {
