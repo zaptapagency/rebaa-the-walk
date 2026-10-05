@@ -352,7 +352,7 @@
   // ======= SET YOUR LEAD DESTINATION =======
   var LEAD = {
     mode: "whatsapp",            // "whatsapp"  OR  "endpoint"
-    whatsapp: "9665XXXXXXXX",    // sales WhatsApp, international digits only (e.g. 9665XXXXXXXX)
+    whatsapp: "966561291512",    // sales WhatsApp, international digits only
     endpoint: ""                 // e.g. "https://formspree.io/f/xxxxxx" — then set mode:"endpoint"
   };
   // ==========================================
@@ -402,11 +402,9 @@
       } else {
         var num = (LEAD.whatsapp || "").replace(/\D/g, "");
         if (num && num.indexOf("X") === -1) {
-          var msg = "Hello Rebaa, I'd like prices and a private viewing." +
-            "%0A%0AName: " + encodeURIComponent(name) +
-            "%0APhone: " + encodeURIComponent(phone) +
-            "%0AProject: " + encodeURIComponent(project);
-          window.open("https://wa.me/" + num + "?text=" + msg, "_blank");
+          var text = "Hello Rebaa, I'd like prices and a private viewing.\n\n" +
+            "Name: " + name + "\nPhone: " + phone + "\nProject: " + project;
+          window.open("https://wa.me/" + num + "?text=" + encodeURIComponent(text), "_blank");
         }
       }
       success(form, name);
