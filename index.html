@@ -8,8 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="icon" type="image/png" href="assets/img/rebaa-symbol.png" />
+<link rel="preload" as="image" href="assets/img/hero.webp" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap" />
-<link rel="stylesheet" href="styles.css?v=4" />
+<link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
 
@@ -47,7 +48,7 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__media">
-      <video class="bgvid" id="heroVid" poster="assets/img/hero.png" muted loop autoplay playsinline preload="auto">
+      <video class="bgvid" id="heroVid" poster="assets/img/hero.webp" muted loop autoplay playsinline preload="auto">
         <source src="assets/video/hero.mp4" type="video/mp4" />
       </video>
       <div class="scrim scrim--hero"></div>
@@ -68,7 +69,7 @@
   <!-- INTRO STATEMENT -->
   <section class="intro" id="intro">
     <div class="ambient" aria-hidden="true">
-      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/hero.mp4" poster="assets/img/hero.png"></video>
+      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/hero.mp4" poster="assets/img/hero.webp"></video>
       <div class="scrim scrim--veil"></div>
     </div>
     <div class="intro__inner">
@@ -88,7 +89,7 @@
   <section class="chapter" id="araya" data-index="1">
     <div class="chapter__sticky">
       <div class="chapter__media" data-media>
-        <canvas class="bgvid framecanvas" data-frames="assets/frames/araya" data-count="61" data-poster="assets/img/araya.png"></canvas>
+        <canvas class="bgvid framecanvas" data-frames="assets/frames/araya" data-count="61" data-poster="assets/img/araya.webp"></canvas>
         <div class="scrim"></div>
         <div class="grain" aria-hidden="true"></div>
       </div>
@@ -116,7 +117,7 @@
   <section class="chapter" id="rosevilla" data-index="2">
     <div class="chapter__sticky">
       <div class="chapter__media" data-media>
-        <canvas class="bgvid framecanvas" data-frames="assets/frames/rosevilla" data-count="61" data-poster="assets/img/rosevilla.png"></canvas>
+        <canvas class="bgvid framecanvas" data-frames="assets/frames/rosevilla" data-count="61" data-poster="assets/img/rosevilla.webp"></canvas>
         <div class="scrim"></div>
         <div class="grain" aria-hidden="true"></div>
       </div>
@@ -144,7 +145,7 @@
   <section class="chapter" id="nayan" data-index="3">
     <div class="chapter__sticky">
       <div class="chapter__media" data-media>
-        <canvas class="bgvid framecanvas" data-frames="assets/frames/nayan" data-count="61" data-poster="assets/img/nayan.png"></canvas>
+        <canvas class="bgvid framecanvas" data-frames="assets/frames/nayan" data-count="61" data-poster="assets/img/nayan.webp"></canvas>
         <div class="scrim"></div>
         <div class="grain" aria-hidden="true"></div>
       </div>
@@ -171,7 +172,7 @@
   <!-- CLOSING -->
   <section class="end" id="end">
     <div class="ambient" aria-hidden="true">
-      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/nayan.mp4" poster="assets/img/nayan.png"></video>
+      <video class="bgvid" muted loop playsinline preload="none" data-amb="assets/video/nayan.mp4" poster="assets/img/nayan.webp"></video>
       <div class="scrim scrim--veil"></div>
     </div>
     <div class="end__inner">
@@ -196,7 +197,7 @@
 
 </main>
 
-<script src="assets/vendor/lenis.min.js?v=4"></script>
-<script src="main.js?v=4"></script>
+<script src="assets/vendor/lenis.min.js?v=7"></script>
+<script src="main.js?v=7"></script>
 </body>
 </html>

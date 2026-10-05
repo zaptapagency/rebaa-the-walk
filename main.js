@@ -15,6 +15,14 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
+  // Prefer WebP frames; fall back to JPEG where WebP is unsupported.
+  var EXT = (function () {
+    try {
+      var c = document.createElement("canvas");
+      return c.toDataURL && c.toDataURL("image/webp").indexOf("data:image/webp") === 0 ? "webp" : "jpg";
+    } catch (e) { return "jpg"; }
+  })();
+
   /* ---------- Preloader ---------- */
   var preloader = document.getElementById("preloader");
   var pFill = document.getElementById("preloaderFill");
@@ -83,7 +91,7 @@
           fs.imgs[idx] = im;
           if (!fs.firstReady) { fs.firstReady = true; }
         };
-        im.src = fs.base + "/" + ("00" + (idx + 1)).slice(-3) + ".jpg";
+        im.src = fs.base + "/" + ("00" + (idx + 1)).slice(-3) + "." + EXT;
       })(i);
     }
   }
@@ -98,6 +106,12 @@
       if (idx + d < fs.count && fs.imgs[idx + d]) { fs.ctx.drawImage(fs.imgs[idx + d], 0, 0, FW, FH); return; }
     }
   }
+
+  // Preload every chapter's frames in the background so scrubbing is
+  // ready before the visitor arrives (no poster freeze on first scroll).
+  setTimeout(function () {
+    targets.forEach(function (t) { if (!t.isHero) startLoad(t); });
+  }, 1000);
 
   /* ---------- Hero video (autoplay, pause off-screen) ---------- */
   var heroVid = document.getElementById("heroVid");
