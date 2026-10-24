@@ -89,6 +89,10 @@ a{ color:inherit; text-decoration:none; }
 .wordmark{ display:flex; align-items:center; }
 .wordmark__img{ height:clamp(30px,4.4vw,40px); width:auto; filter:drop-shadow(0 1px 10px rgba(0,0,0,.5)); }
 .topbar__meta{ font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); }
+.topbar__nav{ display:flex; align-items:center; gap:clamp(14px,2.4vw,24px); pointer-events:auto; }
+.topbar__nav a{ font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); transition:opacity .25s; }
+.topbar__nav a:hover{ opacity:1; }
+.topbar__nav .topbar__cta{ opacity:1; }
 
 /* ============================================================
    Chapter rail (right side)
