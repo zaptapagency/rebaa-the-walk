@@ -172,9 +172,8 @@
 
       if (t.isHero) {
         if (t.media && !reduce) t.media.style.transform = "scale(" + (1.06 + p * 0.1) + ") translateY(" + p * 5 + "%)";
-        if (t.content) {
-          t.content.style.transform = "translateY(" + p * -40 + "px)";
-          t.content.style.opacity = String(clamp(1 - p * 1.35, 0, 1));
+        if (t.content && !reduce) {
+          t.content.style.transform = "translateY(" + p * -30 + "px)";
         }
       } else {
         var near = (sy + vh * 1.5) > top && sy < (top + h + vh * 0.5);
@@ -185,13 +184,11 @@
 
         if (t.media && !reduce) t.media.style.transform = "scale(" + (1.12 - p * 0.12) + ")";
         if (t.text) {
-          var inA = clamp(p / 0.24, 0, 1);
-          var outA = 1 - clamp((p - 0.84) / 0.16, 0, 1);
-          var a = Math.min(inA, outA);
+          var inA = clamp(p / 0.18, 0, 1);
           if (reduce) { t.text.style.opacity = "1"; t.text.style.transform = "none"; }
           else {
-            t.text.style.opacity = String(a);
-            t.text.style.transform = "translateY(" + ((1 - inA) * 44 - (1 - outA) * 34) + "px)";
+            t.text.style.opacity = String(inA);
+            t.text.style.transform = "translateY(" + ((1 - inA) * 36) + "px)";
           }
         }
       }

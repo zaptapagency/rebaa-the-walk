@@ -90,9 +90,14 @@ a{ color:inherit; text-decoration:none; }
 .wordmark__img{ height:clamp(30px,4.4vw,40px); width:auto; filter:drop-shadow(0 1px 10px rgba(0,0,0,.5)); }
 .topbar__meta{ font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); }
 .topbar__nav{ display:flex; align-items:center; gap:clamp(14px,2.4vw,24px); pointer-events:auto; }
-.topbar__nav a{ font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); transition:opacity .25s; }
-.topbar__nav a:hover{ opacity:1; }
-.topbar__nav .topbar__cta{ opacity:1; }
+.topbar__nav a{ font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--stone); opacity:.85; text-shadow:0 1px 8px rgba(0,0,0,.6); transition:opacity .25s, color .25s; }
+.topbar__nav a:hover{ opacity:1; color:var(--paper); }
+.topbar__nav .topbar__cta{
+  opacity:1; color:var(--ink); background:var(--bronze); padding:10px 18px; border-radius:999px;
+  font-weight:600; font-size:.7rem; letter-spacing:.14em; text-shadow:none;
+  transition:background .25s, transform .2s;
+}
+.topbar__nav .topbar__cta:hover{ background:var(--bronze-soft); transform:translateY(-1px); color:var(--ink); }
 
 /* ============================================================
    Chapter rail (right side)
@@ -314,6 +319,7 @@ a{ color:inherit; text-decoration:none; }
   .rail{ display:none; }
   .chapter{ height:280vh; }
   .topbar__meta{ display:none; }
+  .topbar__nav a:not(.topbar__cta){ display:none; }
   .hero__content{ bottom:120px; }
   .scrim{ background:linear-gradient(to top, rgba(16,15,13,.88) 0%, rgba(16,15,13,.15) 50%, rgba(16,15,13,.5) 100%); }
 }
